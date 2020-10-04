@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const BUILD_DIRECTORY = path.resolve(__dirname, 'build');
@@ -22,9 +22,18 @@ const config = {
             presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       }
     ]
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'light-weight-table.css',
+    })
+  ]
 };
 
 module.exports = config;

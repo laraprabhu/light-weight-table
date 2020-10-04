@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../../resources/scss/table.scss';
+
 class Table extends React.Component {
   render() {
     return (
