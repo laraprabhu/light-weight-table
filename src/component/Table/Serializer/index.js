@@ -1,18 +1,21 @@
 export default {
   header: {
     serialize: (props) => ({
-      datasource: props.datasource,
-      columnDefinition: props.columnDefinition,
-      headers: props.columnDefinition.map((def) => def.title),
-      columnCount: props.columnDefinition.length,
+      headers: props.columnDefinition.map((def) => ({ title: def.title, key: def.key }))
     })
   },
   row: {
     serialize: (props) => ({
-      datasource: props.datasource,
-      columnDefinition: props.columnDefinition,
-      headers: props.columnDefinition.map((def) => def.title),
-      columnCount: props.columnDefinition.length,
+      rowData: props.datasource.map((data) => {
+        return {
+          key: data.key,
+          record: data,
+          cells: props.columnDefinition.reduce((accumulator, curDef) => {
+            accumulator.push(data[curDef.dataIdentifier] || '');
+            return accumulator;
+          }, [])
+        };
+      }),
     })
   },
 };

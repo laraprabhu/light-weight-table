@@ -1,16 +1,16 @@
-import dataSource from './dataSource';
+import datasource from './datasource';
 import columnDefinition from './columnDefinition';
 import emptyText from './emptyText';
 
 export default {
   attachSchemas: (Component) => {
     Component.propTypes = {
-      ...dataSource.schema,
+      ...datasource.schema,
       ...columnDefinition.schema,
       ...emptyText.schema
     };
     Component.defaultProps = {
-      ...dataSource.defaultProps,
+      ...datasource.defaultProps,
       ...columnDefinition.defaultProps,
       ...emptyText.defaultProps
     };

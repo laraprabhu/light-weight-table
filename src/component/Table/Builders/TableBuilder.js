@@ -7,14 +7,27 @@ class TableBuilder extends React.Component {
 }
 
 class Header extends React.Component {
+  renderHeaderCells() {
+    const { headers } = this.props.children;
+    return headers.map(({ title, key }) =>
+      <th key={key}>{title}</th>);
+  }
+
   render() {
-    return (<tr><th>Test</th><th>Run</th></tr>);
+    return (<thead><tr>{this.renderHeaderCells()}</tr></thead>);
   }
 }
 
 class Rows extends React.Component {
+  renderRows() {
+    const { rowData } = this.props.children;
+    return rowData.map(({ key, cells }) =>
+      <tr data-row-key={key} key={key}>{cells.map((cellData, i) =>
+        <td key={i}>{cellData}</td>)}</tr>);
+  }
+
   render() {
-    return (<tr><td>test</td><td>record</td></tr>);
+    return (<tbody>{this.renderRows()}</tbody>);
   }
 }
 
