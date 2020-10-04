@@ -1,5 +1,28 @@
-@import './shared.scss';
+@import './variables.scss';
 
-h1 {
-  background: $base-bg-color;
+.table {
+  table-layout: auto;
+  background: $color-white;
+  width: $size-100-percentage;
+
+  .table-header {
+    .table-header-row {
+      .table-header-cell {
+        text-align: left;
+        background-color: $color-half-white;
+        padding: $size-base-secondary;
+      }
+    }
+  }
+
+  .table-row {
+    .table-cell {
+      padding: $size-base $size-base $size-base $size-base-secondary;
+    }
+  }
+}
+
+.table, .table-header, .table-header-cell, .table-cell {
+  border-bottom: $size-one solid $color-white-secondary;
+  border-collapse: collapse;
 }
