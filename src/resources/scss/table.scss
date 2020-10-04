@@ -1,5 +1,15 @@
 @import './variables.scss';
 
+.table-wrapper {
+  max-height: $fixed-wrapper-height;
+  overflow-y: scroll;
+
+  .table-header-cell {
+    position: sticky;
+    top: $size-zero;
+  }
+}
+
 .table {
   table-layout: auto;
   background: $color-white;

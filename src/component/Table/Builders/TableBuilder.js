@@ -1,21 +1,35 @@
 import React from 'react';
-import Utils from '../../../Utilities'
+import Utils from '../../../Utilities';
 
 const { constants: { classNames } } = Utils;
 
 class TableBuilder extends React.Component {
-  render() {
+  renderTable() {
     return (
       <table className={classNames.TABLE}>
         {this.props.children}
       </table>
     );
   }
+
+  renderTableAroundWrapper() {
+    const { isHeaderFixed } = this.props;
+
+    return (isHeaderFixed) ?
+      (<div className={classNames.TABLE_WRAPPER}>
+          {this.renderTable()}</div>) :
+            this.renderTable();
+  }
+
+  render() {
+    return (this.renderTableAroundWrapper());
+  }
 }
 
 class Header extends React.Component {
   renderHeaderCells() {
-    const { headers } = this.props.children;
+    const { headers } = this.props;
+
     return headers.map(({ title, key }) =>
       <th className={classNames.TABLE_HEADER_CELL} key={key}>
         {title}
@@ -42,7 +56,8 @@ class Rows extends React.Component {
   }
 
   renderRows() {
-    const { rowData } = this.props.children;
+    const { rowData } = this.props;
+
     return rowData.map(({ key, cells }) =>
       <tr className={classNames.TABLE_ROW} key={key}>
         {this.renderCells(cells)}

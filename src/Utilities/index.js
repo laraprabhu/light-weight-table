@@ -1,6 +1,7 @@
 export default {
   constants: {
     classNames: {
+      TABLE_WRAPPER: 'table-wrapper',
       TABLE: 'table',
       TABLE_HEADER: 'table-header',
       TABLE_HEADER_ROW: 'table-header-row',

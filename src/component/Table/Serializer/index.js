@@ -1,4 +1,9 @@
 export default {
+  table: {
+    serialize: (props) => ({
+      isHeaderFixed: props.isHeaderFixed,
+    })
+  },
   header: {
     serialize: (props) => ({
       headers: props.columnDefinition.map((def) => ({ title: def.title, key: def.key }))

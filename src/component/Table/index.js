@@ -9,15 +9,16 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
 
+    this.serialisedTableProps = Serializer.table.serialize(props);
     this.serialisedHeaderProps = Serializer.header.serialize(props);
     this.serialisedRowProps = Serializer.row.serialize(props);
   }
 
   render() {
     return (
-      <TabelBuilder>
-        <TabelBuilder.Header>{this.serialisedHeaderProps}</TabelBuilder.Header>
-        <TabelBuilder.Rows>{this.serialisedRowProps}</TabelBuilder.Rows>
+      <TabelBuilder {...this.serialisedTableProps}>
+        <TabelBuilder.Header {...this.serialisedHeaderProps} />
+        <TabelBuilder.Rows {...this.serialisedRowProps} />
       </TabelBuilder>
     );
   }
