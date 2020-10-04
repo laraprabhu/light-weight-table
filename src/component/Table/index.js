@@ -1,4 +1,5 @@
 import React from 'react';
+import Schemas from './schemas'
 
 import '../../resources/scss/table.scss';
 
@@ -10,4 +11,4 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+export default Schemas.attachSchemas(Table);
