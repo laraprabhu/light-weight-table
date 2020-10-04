@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/laraprabhu/light-weight-table/issues"
   },
-  "homepage": "https://github.com/laraprabhu/light-weight-table#readme"
+  "homepage": "https://github.com/laraprabhu/light-weight-table#readme",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
 }
