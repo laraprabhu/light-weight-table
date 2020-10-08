@@ -11,6 +11,7 @@ export default {
   },
   row: {
     serialize: (props) => ({
+      rowsPerLoad: props.staticDataLazyLoadDefinition.rowsPerLoad,
       rowData: props.datasource.map((data) => {
         return {
           key: data.key,
