@@ -10,5 +10,8 @@ export default {
       TABLE_CELL: 'table-cell',
       TABLE_BODY: 'table-body',
     }
+  },
+  delayedTrigger: (callBack, delay) => {
+    return new Promise((res) => setTimeout(callBack, delay));
   }
 };
