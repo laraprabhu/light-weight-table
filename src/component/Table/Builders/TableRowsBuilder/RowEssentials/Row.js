@@ -10,10 +10,10 @@ const renderCells = (cells) =>
     <Cell key={i} cellData={cellData} />);
 
 const Rows = (props) => {
-  const { cells } = props;
+  const { cells, refHandler } = props;
 
   return (
-    <tr className={classNames.TABLE_ROW}>
+    <tr ref={refHandler} className={classNames.TABLE_ROW}>
       {renderCells(cells)}
     </tr>
   );
