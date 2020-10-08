@@ -3,7 +3,7 @@ import Utils from '../../../Utilities';
 
 const { constants: { classNames } } = Utils;
 
-class Header extends React.Component {
+class TableHeaderBuilder extends React.Component {
   renderHeaderCells() {
     const { headers } = this.props;
 
@@ -24,4 +24,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default TableHeaderBuilder;

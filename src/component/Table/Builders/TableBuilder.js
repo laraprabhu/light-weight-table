@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from './TableHeaderBuilder';
-import Rows from './TableRowsBuilder';
+import TableHeaderBuilder from './TableHeaderBuilder';
+import TableRowsBuilder from './TableRowsBuilder';
 
 import Utils from '../../../Utilities';
 
@@ -30,7 +30,7 @@ class TableBuilder extends React.Component {
   }
 }
 
-TableBuilder.Header = Header;
-TableBuilder.Rows = Rows;
+TableBuilder.Header = TableHeaderBuilder;
+TableBuilder.Rows = TableRowsBuilder;
 
 export default TableBuilder;
