@@ -28,6 +28,7 @@
 
   .table-row {
     .table-cell {
+      white-space: nowrap;
       padding: $size-base $size-base $size-base $size-base-secondary;
     }
   }
