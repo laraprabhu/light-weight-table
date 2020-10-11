@@ -47,13 +47,13 @@ export const Table_With_Fixed_Header = () =>
   <Table
     isHeaderFixed={true}
     columnDefinition={[
-      { title: 'Name', 'dataIdentifier': 'name', key: 'name' },
-      { title: 'Age', 'dataIdentifier': 'age', key: 'age' },
+      { title: 'Name', 'dataIdentifier': 'name', key: 'name', fixed: 'left' },
+      { title: 'Age', 'dataIdentifier': 'age', key: 'age', fixed: 'left' },
       { title: 'Gender', 'dataIdentifier': 'gender', key: 'gender' },
       { title: 'Address', 'dataIdentifier': 'address', key: 'address' },
       { title: 'District', 'dataIdentifier': 'district', key: 'district' },
       { title: 'State', 'dataIdentifier': 'state', key: 'state' },
-      { title: 'Country', 'dataIdentifier': 'country', key: 'country' }]}
+      { title: 'Country', 'dataIdentifier': 'country', key: 'country', fixed: 'right' }]}
     datasource={[
       { name: 'Rajaprabhu - First', age: '29', gender: 'Male', address: 'Brook street, 3rd sector', district: 'Newyork', state: 'Tamil nadu', country: 'United states', key: 'rj' },
       { name: 'Jonathan', age: '32', gender: 'Male', address: 'Bus street, 13rd sector', district: 'California', state: 'Andhra pradesh', country: 'India', key: 'pj' },

@@ -19,6 +19,7 @@
     .table-header-row {
       .table-header-cell {
         text-align: left;
+        white-space: nowrap;
         background-color: $color-half-white;
         padding: $size-base-secondary;
       }
@@ -29,6 +30,11 @@
     .table-cell {
       padding: $size-base $size-base $size-base $size-base-secondary;
     }
+  }
+
+  [data-fixed] {
+    position: sticky;  
+    z-index: 1;
   }
 }
 
