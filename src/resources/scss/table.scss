@@ -23,20 +23,30 @@
         background-color: $color-half-white;
         padding: $size-base-secondary;
       }
+
+      [fixed] {
+        z-index: 2;
+      }
     }
   }
 
   .table-row {
     .table-cell {
       white-space: nowrap;
+      background: $color-white;
       padding: $size-base $size-base $size-base $size-base-secondary;
+    }
+
+    [fixed] {
+      z-index: 1;
     }
   }
 
-  [data-fixed] {
+  [fixed] {
     position: sticky;  
-    z-index: 1;
   }
+
+
 }
 
 .table, .table-header, .table-header-cell, .table-cell {

@@ -27,7 +27,7 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
     return new IntersectionObserver(this.observerHandler);
   };
 
-  observerHandler = ([entry]) => {
+  observerHandler = ([entry]) => {    
     if (entry.isIntersecting) {
       this.showLoader();
       Utils.delayedTrigger(
@@ -64,15 +64,19 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
   };
 
   generateLoaderRows = () => {
+    const { addTableResizeables } = this.props;
     const [data] = this.state.showableData;
+
     const colsLength = data.cells.length;
+    const cellsConfig = data.cellsConfig;
 
-    let rows = [];
-    let cellVal = new Array(colsLength).fill('...');
+    const rows = [];
+    const cells = new Array(colsLength).fill('...');
+    const props = { cells, cellsConfig, addTableResizeables };
 
-    rows.push(<Row key={1} cells={cellVal} />);
-    rows.push(<Row key={2} cells={cellVal} />);
-    rows.push(<Row key={3} cells={cellVal} />);
+    rows.push(<Row key={1} {...props} />);
+    rows.push(<Row key={2} {...props} />);
+    rows.push(<Row key={3} {...props} />);
 
     return rows;
   };
@@ -90,13 +94,17 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
 
   renderRows() {
     const { showableData, isLoading } = this.state;
+    const { addTableResizeables } = this.props;
 
-    const renderableData = showableData.map(({ key, cells }, i, array) =>
-      <Row
-        refHandler={this.collectAndObserveRowRef(i, array)}
-        cells={cells}
-        key={key}
-      />);
+    const renderableData = showableData.map(
+      ({ key, cells, cellsConfig }, i, array) =>
+        <Row
+          key={key}
+          cells={cells}
+          cellsConfig={cellsConfig}
+          addTableResizeables= {addTableResizeables}
+          refHandler={this.collectAndObserveRowRef(i, array)}
+        />);
 
     return isLoading ? [renderableData, ...this.generateLoaderRows()] : renderableData;
   }

@@ -1,24 +1,20 @@
-const getNewWidth = (fixed, index, elementRefs) => {
+const getNewWidth = (fixed, index, columnWidths) => {
   const isFixedLeft = fixed === 'left';
 
   let width = 0;
   for (
-    let i = isFixedLeft ? 0 : elementRefs.length - 1;
+    let i = isFixedLeft ? 0 : columnWidths.length - 1;
     isFixedLeft ? (i < index) : (i > index);
     isFixedLeft ? i++ : i--) {
-    width += elementRefs[i].clientWidth;
+    width += columnWidths[i];
   }
 
   return width;
 };
 
-export default (elementRefs) => () => {
-  if (!elementRefs) return;
+export default (resizeable, columnWidths) => {
+  const { fixed, index, ref: element } = resizeable;
+  const updatedWidth = getNewWidth(fixed, index, columnWidths);
 
-  elementRefs.forEach((ref) => {
-    const { fixed, index } = ref.dataset;
-    const updatedWidth = getNewWidth(fixed, index, elementRefs);
-
-    ref.style[fixed] = `${updatedWidth}px`;
-  });
+  element.style[fixed] = `${updatedWidth}px`;
 };

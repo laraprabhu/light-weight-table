@@ -4,14 +4,16 @@ import Utils from '../../../../../Utilities';
 
 const { constants: { classNames } } = Utils;
 
-const Cell = (props) => {
-  const { cellData } = props;
+class Cell extends React.Component {
+  render() {
+    const { fixed, cellData, refHandler } = this.props;
 
-  return (
-    <td className={classNames.TABLE_CELL}>
-      {cellData}
-    </td>
-  );
+    return (
+      <td fixed={fixed} ref={refHandler} className={classNames.TABLE_CELL}>
+        {cellData}
+      </td>
+    );
+  }
 };
 
 export default Cell;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import resizeEventHandler from '../Events/TableResizeHandler';
 import Utils from '../../../Utilities';
 
 const { constants: { classNames } } = Utils;
@@ -8,20 +7,21 @@ const { constants: { classNames } } = Utils;
 class TableHeaderBuilder extends React.Component {
   constructor(props) {
     super(props);
-    this.headerRefs = [];
+
+    this.headerReferences = [];
+    this.resizeables = [];
   }
 
   componentDidMount() {
-    this.props.addResizeHandler(
-      resizeEventHandler(
-        this.headerRefs
-      )
-    );
+    this.props.addTableHeaderReference(...this.headerReferences);
+    this.props.addTableResizeables(...this.resizeables);
   }
 
-  refHandler = (ref) => {
-    if (!ref) return;
-    this.headerRefs.push(ref);
+  refHandler = (fixed, index) => (ref) => {
+    if (ref) {
+      this.headerReferences.push(ref);
+      this.resizeables.push({ fixed, ref, index });
+    }
   };
 
   renderHeaderCells() {
@@ -30,13 +30,13 @@ class TableHeaderBuilder extends React.Component {
     return headers.map(({ title, key, fixed }, index) =>
       <th
         className={classNames.TABLE_HEADER_CELL}
-        data-fixed={fixed}
-        data-index={index}
-        ref={this.refHandler}
+        ref={this.refHandler(fixed, index)}
+        fixed={fixed}
         key={key}
       >
         {title}
-      </th>);
+      </th>
+    );
   }
 
   render() {

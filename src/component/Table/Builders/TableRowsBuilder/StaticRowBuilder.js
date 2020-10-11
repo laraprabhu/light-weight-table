@@ -6,9 +6,18 @@ import Utils from '../../../../Utilities';
 const { constants: { classNames } } = Utils;
 
 class StaticRowBuilder extends React.Component {
-  renderRows = () =>
-    this.props.rowData.map(({ key, cells }) =>
-      <Row key={key} cells={cells} />);
+  renderRows = () => {
+    const { addTableResizeables, rowData } = this.props;
+
+    return rowData.map(
+      ({ key, cells, cellsConfig }) =>
+        <Row
+          key={key}
+          cells={cells}
+          cellsConfig={cellsConfig}
+          addTableResizeables={addTableResizeables}
+        />);
+  }
 
   render() {
     return (

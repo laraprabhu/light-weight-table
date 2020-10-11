@@ -20,7 +20,7 @@ export default {
         return {
           key: data.key,
           record: data,
-          cellsConfig: props.columnDefinition.map((def) => { fixed: def.fixed }),
+          cellsConfig: props.columnDefinition.map((def) => ({ fixed: def.fixed })),
           cells: props.columnDefinition.reduce((accumulator, curDef) => {
             accumulator.push(data[curDef.dataIdentifier] || '');
             return accumulator;

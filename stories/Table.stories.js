@@ -94,7 +94,7 @@ export const Table_With_Fixed_Header = () =>
     staticDataLazyLoadDefinition={{ rowsPerLoad: 10 }}
     isHeaderFixed={true}
     columnDefinition={[
-      { title: 'Name', 'dataIdentifier': 'name', key: 'name' },
+      { title: 'Name', 'dataIdentifier': 'name', key: 'name', fixed: 'left' },
       { title: 'Age', 'dataIdentifier': 'age', key: 'age' },
       { title: 'Gender', 'dataIdentifier': 'gender', key: 'gender' },
       { title: 'Address', 'dataIdentifier': 'address', key: 'address' },

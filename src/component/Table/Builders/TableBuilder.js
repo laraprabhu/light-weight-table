@@ -3,6 +3,7 @@ import React from 'react';
 import TableHeaderBuilder from './TableHeaderBuilder';
 import TableRowsBuilder from './TableRowsBuilder';
 
+import resizeEventHandler from '../Events/TableResizeHandler';
 import Utils from '../../../Utilities';
 
 const { constants: { classNames } } = Utils;
@@ -12,25 +13,35 @@ class TableBuilder extends React.Component {
     super(props);
 
     this.tableReference = null;
-    this.tableResizeHandlers = [];
+    this.columnWidths = []
+    this.tableHeaderReferences = [];
+    this.tableResizables = [];
+
     this.tableResizeObserver =
-      new ResizeObserver(
-        this.tableResizeHandler()
-      );
+      new ResizeObserver(this.tableResizeHandler);
   }
 
-  tableResizeHandler = () => () => {
-    this.tableResizeHandlers.forEach(
-      (resizeHandler) => resizeHandler()
-    );
+  tableResizeHandler = () => {
+    this.columnWidths = this.tableHeaderReferences.map((ref) => ref.clientWidth)
+    this.tableResizables.forEach((resizable) => resizeEventHandler(resizable, this.columnWidths));
   }
 
-  addResizeHandler = (handler) => {
-    this.tableResizeHandlers.push(handler);
+  addTableHeaderReference = (...reference) => {
+    this.tableHeaderReferences.push(...reference);
+  }
+
+  addTableResizeables = (...resizable) => {
+    this.tableResizables.push(...resizable);
   }
 
   componentDidMount() {
     this.tableResizeObserver.observe(
+      this.tableReference
+    );
+  }
+
+  componentWillUnmount() {
+    this.tableResizeObserver.unobserve(
       this.tableReference
     );
   }
@@ -46,8 +57,8 @@ class TableBuilder extends React.Component {
         ref={(ref) => this.tableReference = ref}
         className={classNames.TABLE}>
         {this.renderChildrenWithProps({
-          addResizeHandler:
-            this.addResizeHandler
+          addTableHeaderReference: this.addTableHeaderReference,
+          addTableResizeables: this.addTableResizeables,
         })}
       </table>
     );
