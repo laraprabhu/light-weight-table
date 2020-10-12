@@ -4,9 +4,11 @@
   max-height: $fixed-wrapper-height;
   overflow-y: scroll;
 
-  .table-header-cell {
-    position: sticky;
-    top: $size-zero;
+  &.table-fixed-header-row {
+    .table-header-cell {
+      position: sticky;
+      top: $size-zero;
+    }
   }
 }
 

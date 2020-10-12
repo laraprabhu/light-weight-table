@@ -15,6 +15,21 @@ class Rows extends React.Component {
     this.props.addTableResizeables(...this.resizeables);
   }
 
+  shouldComponentUpdate(nextProps) {
+    const currentCells = this.props.cells;
+    const nextCells = nextProps.cells;
+
+    let isMatching = true;
+    for(let i=0; i< currentCells.length; i++) {
+      if(currentCells[i] !== nextCells[i]) {
+        isMatching = false;
+        break;
+      }
+    }
+
+    return !isMatching;
+  }
+
   refHandler = (fixed, index) => (ref) => {
     if (ref) {
       this.resizeables.push({
@@ -27,7 +42,8 @@ class Rows extends React.Component {
 
   renderCells = (cells, cellsConfig) =>
     cells.map((cellData, i) =>
-      <Cell refHandler={this.refHandler(cellsConfig[i].fixed, i)}
+      <Cell
+        refHandler={this.refHandler(cellsConfig[i].fixed, i)}
         fixed={cellsConfig[i].fixed}
         cellData={cellData}
         key={i} />);

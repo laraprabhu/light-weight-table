@@ -5,6 +5,7 @@ export default {
       TABLE: 'table',
       TABLE_HEADER: 'table-header',
       TABLE_HEADER_ROW: 'table-header-row',
+      TABLE_HEADER_ROW_FIXED: 'table-fixed-header-row',
       TABLE_HEADER_CELL: 'table-header-cell',
       TABLE_ROW: 'table-row',
       TABLE_CELL: 'table-cell',
@@ -12,6 +13,9 @@ export default {
     }
   },
   delayedTrigger: (callBack, delay) => {
-    return new Promise((res) => setTimeout(callBack, delay));
+    return new Promise((res) => setTimeout(() => {
+      callBack()
+      res();
+    }, delay));
   }
 };

@@ -27,11 +27,11 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
     return new IntersectionObserver(this.observerHandler);
   };
 
-  observerHandler = ([entry]) => {    
+  observerHandler = async ([entry]) => {
     if (entry.isIntersecting) {
-      this.showLoader();
-      Utils.delayedTrigger(
-        this.prepareAndSetShowableData, 1000
+      await this.showLoader();
+      await Utils.delayedTrigger(
+        this.prepareAndSetShowableData, 3000
       );
     }
   };
@@ -49,15 +49,12 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
   }
 
   setShowableData = () => {
-    this.setState({ showableData: this.state.originalData.slice(0, this.rowsLoaded) });
+    this.setState({ showableData: 
+        this.state.originalData
+          .slice(0, this.rowsLoaded) });
   }
 
   prepareAndSetShowableData = () => {
-    if (this.state.originalData.length <= this.rowsLoaded) {
-      this.intersectionObserver.unobserve(this.lastObserved);
-      return;
-    }
-
     this.updateRowsLoaded();
     this.setShowableData();
     this.hideLoader();
@@ -74,19 +71,24 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
     const cells = new Array(colsLength).fill('...');
     const props = { cells, cellsConfig, addTableResizeables };
 
+    rows.push(<Row key={0} {...props} />);
     rows.push(<Row key={1} {...props} />);
     rows.push(<Row key={2} {...props} />);
-    rows.push(<Row key={3} {...props} />);
 
     return rows;
   };
 
   collectAndObserveRowRef = (i, array) => (row) => {
-    if (!row || this.state.isLoading) return;
+    if (!row) return;
 
-    if (this.lastObserved) this.intersectionObserver.unobserve(this.lastObserved);
+    if (this.lastObserved) {
+      this.intersectionObserver.unobserve(this.lastObserved);
+      this.lastObserved = null;
+    }
 
-    if (i === array.length - 1 && i !== this.state.originalData.length - 1) {
+    if (i === array.length - 1 &&
+      i !== this.state.originalData.length - 1) {
+
       this.intersectionObserver.observe(row);
       this.lastObserved = row;
     }
@@ -102,11 +104,13 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
           key={key}
           cells={cells}
           cellsConfig={cellsConfig}
-          addTableResizeables= {addTableResizeables}
+          addTableResizeables={addTableResizeables}
           refHandler={this.collectAndObserveRowRef(i, array)}
         />);
 
-    return isLoading ? [renderableData, ...this.generateLoaderRows()] : renderableData;
+    return isLoading ? 
+      [...renderableData, ...this.generateLoaderRows()] : 
+        renderableData;
   }
 
   render() {

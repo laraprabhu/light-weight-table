@@ -21,19 +21,6 @@ class TableBuilder extends React.Component {
       new ResizeObserver(this.tableResizeHandler);
   }
 
-  tableResizeHandler = () => {
-    this.columnWidths = this.tableHeaderReferences.map((ref) => ref.clientWidth)
-    this.tableResizables.forEach((resizable) => resizeEventHandler(resizable, this.columnWidths));
-  }
-
-  addTableHeaderReference = (...reference) => {
-    this.tableHeaderReferences.push(...reference);
-  }
-
-  addTableResizeables = (...resizable) => {
-    this.tableResizables.push(...resizable);
-  }
-
   componentDidMount() {
     this.tableResizeObserver.observe(
       this.tableReference
@@ -44,6 +31,22 @@ class TableBuilder extends React.Component {
     this.tableResizeObserver.unobserve(
       this.tableReference
     );
+  }
+
+  tableResizeHandler = () => {
+    this.columnWidths = this.tableHeaderReferences
+      .map((ref) => ref.clientWidth)
+    this.tableResizables
+      .forEach((resizable) =>
+        resizeEventHandler(resizable, this.columnWidths));
+  }
+
+  addTableHeaderReference = (...reference) => {
+    this.tableHeaderReferences.push(...reference);
+  }
+
+  addTableResizeables = (...resizable) => {
+    this.tableResizables.push(...resizable);
   }
 
   renderChildrenWithProps(newProps) {
@@ -75,7 +78,15 @@ class TableBuilder extends React.Component {
   }
 
   render() {
-    return (this.renderTableAroundWrapper());
+    const { isHeaderFixed } = this.props;
+    const collatedClassNames = `${classNames.TABLE_WRAPPER} ` +
+      `${isHeaderFixed ? classNames.TABLE_HEADER_ROW_FIXED : ''}`;
+
+    return (
+      <div className={collatedClassNames}>
+        {this.renderTable()}
+      </div>
+    );
   }
 }
 
