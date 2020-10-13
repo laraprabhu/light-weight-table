@@ -29,12 +29,26 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
 
   observerHandler = async ([entry]) => {
     if (entry.isIntersecting) {
+      await this.unobserveLastObservedRow();
       await this.showLoader();
       await Utils.delayedTrigger(
-        this.prepareAndSetShowableData, 3000
+        this.prepareAndSetShowableData,
+        1000
       );
     }
   };
+
+  observeRow = (row) => {
+    this.intersectionObserver.observe(row);
+    this.lastObserved = row;
+  };
+
+  unobserveLastObservedRow = () => {
+    if (this.lastObserved) {
+      this.intersectionObserver.unobserve(this.lastObserved);
+      this.lastObserved = null;
+    }
+  }
 
   showLoader = () => {
     this.setState({ isLoading: true });
@@ -49,9 +63,11 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
   }
 
   setShowableData = () => {
-    this.setState({ showableData: 
+    this.setState({
+      showableData:
         this.state.originalData
-          .slice(0, this.rowsLoaded) });
+          .slice(0, this.rowsLoaded)
+    });
   }
 
   prepareAndSetShowableData = () => {
@@ -81,16 +97,9 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
   collectAndObserveRowRef = (i, array) => (row) => {
     if (!row) return;
 
-    if (this.lastObserved) {
-      this.intersectionObserver.unobserve(this.lastObserved);
-      this.lastObserved = null;
-    }
-
-    if (i === array.length - 1 &&
-      i !== this.state.originalData.length - 1) {
-
-      this.intersectionObserver.observe(row);
-      this.lastObserved = row;
+    if (i === array.length - 1 && 
+        i !== this.state.originalData.length - 1) {
+      this.observeRow(row);
     }
   }
 
@@ -108,9 +117,9 @@ class StaticRowBuilderWithLazyLoad extends React.Component {
           refHandler={this.collectAndObserveRowRef(i, array)}
         />);
 
-    return isLoading ? 
-      [...renderableData, ...this.generateLoaderRows()] : 
-        renderableData;
+    return isLoading ?
+      [...renderableData, ...this.generateLoaderRows()] :
+      renderableData;
   }
 
   render() {
