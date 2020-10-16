@@ -1,3 +1,5 @@
+import RowDataMapper from '../DataLoaders/dataMapper';
+
 export default {
   table: {
     serialize: (props) => ({
@@ -16,17 +18,10 @@ export default {
   row: {
     serialize: (props) => ({
       rowsPerLoad: props.staticDataLazyLoadDefinition.rowsPerLoad,
-      rowData: props.datasource.map((data) => {
-        return {
-          key: data.key,
-          record: data,
-          cellsConfig: props.columnDefinition.map((def) => ({ fixed: def.fixed })),
-          cells: props.columnDefinition.reduce((accumulator, curDef) => {
-            accumulator.push(data[curDef.dataIdentifier] || '');
-            return accumulator;
-          }, [])
-        };
-      }),
-    })
+      rowDataUrl: props.dynamiDataLazyLoadDefinition.rowDataUrl,
+      rowDataColumnDefinition: props.columnDefinition,
+      rowData: props.datasource.map(RowDataMapper(props.columnDefinition)),
+      rowDataMapper: RowDataMapper(props.columnDefinition),
+    }),
   },
 };

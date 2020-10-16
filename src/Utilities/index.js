@@ -17,5 +17,10 @@ export default {
       callBack()
       res();
     }, delay));
+  },
+  delayedResolution: (data, delay) => {
+    return new Promise((res) => setTimeout(() => {
+      res(data);
+    }, delay));
   }
 };

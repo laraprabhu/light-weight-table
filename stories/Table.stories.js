@@ -272,3 +272,17 @@ export const Static_Lazy_Load_With_Fixed_Header_And_Columns = () =>
       { name: 'Sam shields', age: '34', gender: 'Male', address: 'New street, 23rd sector', district: 'Kanchipuram', state: 'Kerala', country: 'Russia', key: 'adknnk21' },
       { name: 'Kavya P - Last', age: '39', gender: 'Female', address: 'Old street, 323rd sector', district: 'Texas', state: 'Maharashtra', country: 'China', key: 'ncncd3' },]}
   />;
+
+export const Dynamic_Data = () =>
+  <Table
+    isHeaderFixed={true}
+    dynamiDataLazyLoadDefinition={{ rowDataUrl: "https://pastebin.com/raw/SCbfwRaP" }}
+    columnDefinition={[
+      { title: 'Name', 'dataIdentifier': 'name', key: 'name' },
+      { title: 'Age', 'dataIdentifier': 'age', key: 'age' },
+      { title: 'Gender', 'dataIdentifier': 'gender', key: 'gender' },
+      { title: 'Address', 'dataIdentifier': 'address', key: 'address' },
+      { title: 'District', 'dataIdentifier': 'district', key: 'district' },
+      { title: 'State', 'dataIdentifier': 'state', key: 'state' },
+      { title: 'Country', 'dataIdentifier': 'country', key: 'country', }]}
+  />;
