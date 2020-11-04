@@ -1,6 +1,6 @@
 # Light weight table - React
 
-Came across a professional website that used a table with fixed colums and lazy loaded rows. Became curious about it and wanted to implement the same in react. Implemented it. New things learned: intersectionObserver, resizeObserver, position-sticky (css).
+Came across a professional website that uses a table with sticky colums and lazy loaded rows. Became curious about it and wanted to implement the same in react. Implemented it. New things learned: intersectionObserver, resizeObserver, position-sticky (css).
 
 This table can do the following,
 
